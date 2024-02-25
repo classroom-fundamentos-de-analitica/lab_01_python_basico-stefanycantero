@@ -286,10 +286,10 @@ def pregunta_09():
                 if ":" in i:
                     key, value = i.split(":")
                     count[key] = count.get(key, 0) + 1
-        count = sorted(count.items())
+
+        count = dict(sorted(count.items()))
 
     return count
-
 
 def pregunta_10():
     """
