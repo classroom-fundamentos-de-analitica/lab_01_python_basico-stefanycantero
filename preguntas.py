@@ -21,7 +21,14 @@ def pregunta_01():
     214
 
     """
-    return
+    total = 0
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()
+            values = int(data[1])
+            total += values
+
+    return total
 
 
 def pregunta_02():
@@ -39,7 +46,16 @@ def pregunta_02():
     ]
 
     """
-    return
+    records = {}
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()
+            letter = data[0]
+            records[letter] = records.get(letter, 0) + 1
+
+        records = sorted(records.items(), key=lambda x: x[0])
+
+    return records
 
 
 def pregunta_03():
@@ -57,7 +73,17 @@ def pregunta_03():
     ]
 
     """
-    return
+    records = {}
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()
+            letter = data[0]
+            value = int(data[1])
+            records[letter] = records.get(letter, 0) + value
+
+        records = sorted(records.items(), key=lambda x: x[0])
+
+    return records
 
 
 def pregunta_04():
@@ -82,7 +108,16 @@ def pregunta_04():
     ]
 
     """
-    return
+    records = {}
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()
+            month = data[2].split('-')[1]
+            records[month] = records.get(month, 0) + 1
+
+        records = sorted(records.items(), key=lambda x: x[0])
+
+    return records
 
 
 def pregunta_05():
@@ -100,7 +135,18 @@ def pregunta_05():
     ]
 
     """
-    return
+    records = {}
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()
+            letter = data[0]
+            value = int(data[1])
+            records.setdefault(letter, []).append(value)
+
+        records = sorted(records.items(), key=lambda x: x[0])
+        final_list = [(letter, max(values), min(values)) for letter, values in records]
+
+    return final_list
 
 
 def pregunta_06():
@@ -125,7 +171,20 @@ def pregunta_06():
     ]
 
     """
-    return
+    records = {}
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()[4]
+            dictionary = data.split(",")
+            for i in dictionary:
+                if ":" in i:
+                    key, value = i.split(":")
+                    records.setdefault(key, []).append(int(value))
+
+        records = sorted(records.items(), key=lambda x: x[0])
+        final_list = [(key, min(values), max(values)) for key, values in records]
+
+    return final_list
 
 
 def pregunta_07():
@@ -149,7 +208,17 @@ def pregunta_07():
     ]
 
     """
-    return
+    records = {}
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()
+            key = int(data[1])
+            value = data[0]
+            records.setdefault(key, []).append(value)
+
+        records = sorted(records.items(), key=lambda x: x[0])
+
+    return records
 
 
 def pregunta_08():
@@ -174,7 +243,18 @@ def pregunta_08():
     ]
 
     """
-    return
+    records = {}
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()
+            key = int(data[1])
+            value = data[0]
+            records.setdefault(key, []).append(value)
+
+        records = sorted(records.items(), key=lambda x: x[0])
+        final_list = [(key, sorted(set(values))) for key, values in records]
+
+    return final_list
 
 
 def pregunta_09():
@@ -197,8 +277,19 @@ def pregunta_09():
     }
 
     """
-    return
+    count = {}
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()[4]
+            dictionary = data.split(",")
+            for i in dictionary:
+                if ":" in i:
+                    key, value = i.split(":")
+                    count[key] = count.get(key, 0) + 1
 
+        count = dict(sorted(count.items()))
+
+    return count
 
 def pregunta_10():
     """
@@ -218,7 +309,16 @@ def pregunta_10():
 
 
     """
-    return
+    list = []
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()
+            letter = data[0]
+            col4 = len(data[3].split(','))
+            col5 = len(data[4].split(','))
+            list.append((letter, col4, col5))
+
+    return list
 
 
 def pregunta_11():
@@ -239,7 +339,20 @@ def pregunta_11():
 
 
     """
-    return
+    dictionary = {}
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()
+            letters = data[3].split(",")
+            for letter in letters:
+                if letter not in dictionary.keys():
+                    dictionary[letter] = int(data[1])
+                else:
+                    dictionary[letter] += int(data[1])
+
+    dictionary = dict(sorted(dictionary.items()))
+
+    return dictionary
 
 
 def pregunta_12():
@@ -257,4 +370,19 @@ def pregunta_12():
     }
 
     """
-    return
+    dictionary = {}
+    with open('data.csv', 'r') as file:
+        for line in file:
+            data = line.split()
+            letters = data[0]
+            values = data[4].split(",")
+            for i in values:
+                value = int(i.split(":")[1])
+                if letters not in dictionary.keys():
+                    dictionary[letters] = value
+                else:
+                    dictionary[letters] += value
+
+    dictionary = dict(sorted(dictionary.items()))
+
+    return dictionary
